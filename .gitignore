@@ -23,19 +23,11 @@ target
 *.log
 
 logs
-web/src/main/webapp/saiku-ui/.csscomb.json
-web/src/main/webapp/saiku-ui/.editorconfig
 web/src/main/webapp/saiku-ui/CONTRIBUTING.md
-web/src/main/webapp/saiku-ui/Gruntfile.js
 web/src/main/webapp/saiku-ui/LICENSE
 web/src/main/webapp/saiku-ui/README.md
-web/src/main/webapp/saiku-ui/ajaxtest.html
-web/src/main/webapp/saiku-ui/forward.html
 web/src/main/webapp/saiku-ui/index.html.orig
 web/src/main/webapp/saiku-ui/minify.patch
 web/src/main/webapp/saiku-ui/node_modules/
 web/src/main/webapp/saiku-ui/npm-debug.*
-web/src/main/webapp/saiku-ui/package.json
-web/src/main/webapp/saiku-ui/server.js
-web/src/main/webapp/saiku-ui/test.html
 
