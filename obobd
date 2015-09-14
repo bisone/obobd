@@ -7,13 +7,13 @@ function do_setup() {
 
 
 function do_build_saiku(){
-    cd saiku
+    cd ../saiku
     mvn clean install -DskipTests=true
     cd -
 }
 
 function do_saiku-ui(){
-    cd saiku/saiku-ui
+    cd ../saiku/saiku-ui
     npm run start2 &
     grunt &
     cd -
@@ -29,29 +29,38 @@ function do_dev(){
 
 function do_help() {
     cat <<eom
-Usage: ./obobd setup
-setup: 初始化项目，建立 saiku subtree;
+Usage: ./obobd dev | ui
+dev: 启动开发环境
+ui：启动nodejs
 eom
 }
 
-
+function do_release(){
+    cd ../saiku/saiku-ui
+    mvn clean install
+    cd -
+    cp -r ../saiku/saiku-ui web/src/main/webapp
+}
 
 for OPT in $@ ; do
 
     echo "执行： $OPT"
 
     case $OPT in
-        setup)
-            shift
-            do_setup $@
-            exit 0
-            ;;
+        # setup)
+        #     shift
+        #     do_setup $@
+        #     exit 0
+        #     ;;
         dev)
             do_dev
             ;;
 
         ui)
             do_saiku-ui
+            ;;
+        release)
+            do_release
             ;;
         *|help)
             do_help

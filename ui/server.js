@@ -15,7 +15,7 @@ new WebpackDevServer(webpack(config), {
     hot: true,
     noInfo: false,
     proxy: {
-        "/rest/*": "http://sone.dev.jd.com:8082"
+        "/rest/*": "http://127.0.0.1:8082"
     },
 //    proxy: [
 //        {
