@@ -1,0 +1,61 @@
+#!/bin/bash
+
+function do_setup() {
+    git remote add -f saiku https://github.com/standino/saiku.git
+    git subtree add --prefix=saiku saiku master --squash
+}
+
+
+function do_build_saiku(){
+    cd saiku
+    mvn clean install -DskipTests=true
+    cd -
+}
+
+function do_saiku-ui(){
+    cd saiku/saiku-ui
+    npm run start2 &
+    grunt &
+    cd -
+}
+
+function do_dev(){
+    do_saiku-ui
+    cd web
+    mvn clean install
+    mvn  jetty:run-exploded
+    cd -
+}
+
+function do_help() {
+    cat <<eom
+Usage: ./obobd setup
+setup: 初始化项目，建立 saiku subtree;
+eom
+}
+
+
+
+for OPT in $@ ; do
+
+    echo "执行： $OPT"
+
+    case $OPT in
+        setup)
+            shift
+            do_setup $@
+            exit 0
+            ;;
+        dev)
+            do_dev
+            ;;
+
+        ui)
+            do_saiku-ui
+            ;;
+        *|help)
+            do_help
+            ;;
+    esac
+
+done
