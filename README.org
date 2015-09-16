@@ -918,7 +918,43 @@ WHERE country = 'Canada'
 #+END_SRC
 2) 拷贝插件代码到如下目录 /webapps/ROOT/js/saiku/plugins/
 
+h1. Plugins
 
+h2. What are plugins?
+
+Plugins allow you to add custom behavior to the Saiku UI. You can use plugins to hide existing UI widgets, add new UI widgets, add custom behavior or new features, or even use a different backend than the Saiku server.
+
+h2. Hooking off events
+
+The Saiku UI exposes a number of events that allow you to perform custom actions or add custom behavior. A list of events that your plugin can use are as follows:
+
+|_.event name|_.signature|_.bound to|_.description|
+|session:new|function({ session })|Saiku.events|Initialize plugins after login|
+|toolbar:render|function({ toolbar })|Saiku.events|Add buttons to the global toolbar|
+|tab:select|function()|Tab|Tab is selected|
+|tab:rendered|function({ tab })|Tab|New tab is finished rendering|
+|tab:add|function({ tab })|Session|New tab is created|
+|tab:remove|function({ tab })|Session|Tab is deleted|
+|workspace:new|function({ workspace })|Session|Bind events to workspace|
+|workspace:clear|function()|Workspace|Clean up data associated with current query|
+|workspace:adjust|function({ workspace })|Workspace|Resize elements when workspace is resized|
+|workspace:toolbar:render|function({ workspace })|Workspace|Add buttons to the toolbar|
+|query:new|function({ workspace })|Workspace|Activate buttons|
+|query:save|function()|Query|Query has been saved|
+|query:result|function()|Workspace|Result returned from server|
+|properties:loaded|function()|Workspace|Query properties loaded from server|
+
+For an example of how to use these events, refer to the "Chart plugin":https://github.com/OSBI/saiku-ui/blob/master/js/saiku/plugins/Chart/plugin.js. This plugin shows you an example of adding custom toolbar elements, and hooking off of events like getting a result from a query.
+
+h2. Using a different backend than the Saiku server
+
+Using a different backend (localStorage, XML/A, etc.) is as easy as replacing the sync method for Backbone. For more information, see "the Backbone.js documentation":http://documentcloud.github.com/backbone/#Sync. For an example of how this is done, see the "SaikuServer implementation":https://github.com/OSBI/saiku-ui/blob/master/js/saiku/adapters/SaikuServer.js in /js/saiku/adapters. To install your custom adapter:
+
+1. Add your adapter to the adapters folder
+2. Import your adapter in the "index.html":https://github.com/OSBI/saiku-ui/blob/master/index.html
+3. Remove the SaikuServer.js import
+
+That's it! If you have any further questions, catch us in IRC and we'll walk you through the process.
 
 *** 嵌入式图表的使用
 
